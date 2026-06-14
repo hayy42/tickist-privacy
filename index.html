@@ -211,6 +211,15 @@
     document.getElementById('btn-en').classList.toggle('active', l === 'en');
     document.documentElement.lang = l;
   }
+
+  // Auto-detect: open in Turkish if the browser/device language is Turkish, otherwise English.
+  (function () {
+    var langs = (navigator.languages && navigator.languages.length)
+      ? navigator.languages
+      : [navigator.language || navigator.userLanguage || 'en'];
+    var isTr = langs.some(function (x) { return x && x.toLowerCase().indexOf('tr') === 0; });
+    setLang(isTr ? 'tr' : 'en');
+  })();
 </script>
 </body>
 </html>
